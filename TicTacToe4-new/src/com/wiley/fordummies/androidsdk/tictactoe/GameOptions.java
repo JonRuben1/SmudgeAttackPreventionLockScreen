@@ -20,24 +20,15 @@ public class GameOptions extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.gameoptions);
 		
-		View btnNewGame = findViewById(R.id.buttonNewGame);
-		btnNewGame.setOnClickListener(this);
 		View btnAudio = findViewById(R.id.buttonAudio);
 		btnAudio.setOnClickListener(this);
-		View btnVideo = findViewById(R.id.buttonVideo);
-		btnVideo.setOnClickListener(this);
-		View btnImage = findViewById(R.id.buttonShowImage);
-		btnImage.setOnClickListener(this);
 		View btnSettings = findViewById(R.id.buttonSettings);
 		btnSettings.setOnClickListener(this);
 		View btnHelp = findViewById(R.id.buttonHelp);
 		btnHelp.setOnClickListener(this);
-		View btnWhereAmI = findViewById(R.id.buttonWhereAmI);
-		btnWhereAmI.setOnClickListener(this);
-		View btnTestSensors = findViewById(R.id.buttonSensors);
-		btnTestSensors.setOnClickListener(this);
 		View btnExit = findViewById(R.id.buttonExit);
 		btnExit.setOnClickListener(this);
+		
 	}
 	
 	private void quitApplication(){
@@ -84,29 +75,14 @@ public class GameOptions extends Activity implements OnClickListener{
 	public void onClick(View v) {
 		switch(v.getId())
 		{
-		case R.id.buttonNewGame:
-			startActivity(new Intent(this, GameSession.class));
-			break;
 		case R.id.buttonAudio:
 			startActivity(new Intent(this, Audio.class));
-			break;
-		case R.id.buttonVideo:
-			startActivity(new Intent(this, Video.class));
-			break;
-		case R.id.buttonShowImage:
-			startActivity(new Intent(this, Images.class));
 			break;
 		case R.id.buttonSettings:
 			startActivity(new Intent(this, Settings.class));
 			break;
 		case R.id.buttonHelp:
 			startActivity(new Intent(this, Help.class));
-			break;
-		case R.id.buttonWhereAmI:
-			startActivity(new Intent(this, WhereAmI.class));
-			break;
-		case R.id.buttonSensors:
-			startActivity(new Intent(this, Sensors.class));
 			break;
 		case R.id.buttonExit:
 			{

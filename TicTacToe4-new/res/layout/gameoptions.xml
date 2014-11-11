@@ -23,26 +23,8 @@
 		android:layout_width="match_parent"
 		android:layout_gravity="center" >
 	<Button
-		android:id="@+id/buttonNewGame"
-		android:text="@string/new_game"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		/>
-	<Button
 		android:id="@+id/buttonAudio"
-		android:text="@string/audio"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		/>
-	<Button
-		android:id="@+id/buttonVideo"
-		android:text="@string/video"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		/>
-	<Button
-		android:id="@+id/buttonShowImage"
-		android:text="@string/images"
+		android:text="@string/reset_password"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		/>
@@ -55,18 +37,6 @@
 	<Button
 		android:id="@+id/buttonHelp"
 		android:text="@string/help"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		/>
-	<Button
-		android:id="@+id/buttonWhereAmI"
-		android:text="@string/where_am_i_"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		/>		
-	<Button
-		android:id="@+id/buttonSensors"
-		android:text="@string/sensors"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		/>	

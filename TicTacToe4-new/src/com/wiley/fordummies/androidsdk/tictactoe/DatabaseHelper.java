@@ -30,6 +30,7 @@ public class DatabaseHelper {
       this.insertStmt.bindString(2, password);
       return this.insertStmt.executeInsert();
    }
+   
    public void deleteAll() {
       this.db.delete(TABLE_NAME, null, null);
    }

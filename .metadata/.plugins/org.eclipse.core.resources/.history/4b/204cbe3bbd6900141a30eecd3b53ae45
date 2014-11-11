@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/background"
+    android:title="Settings" >
+
+    <EditTextPreference
+        android:defaultValue="Player 1"
+        android:key="name"
+        android:summary="Select your paceworddddd"
+        android:title="Player Info" />
+
+</PreferenceScreen>

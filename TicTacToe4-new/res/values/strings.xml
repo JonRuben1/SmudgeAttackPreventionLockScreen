@@ -62,5 +62,6 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="findme">Find me</string>
+    <string name="reset_password">Reset Password</string>
 
 </resources>

@@ -27,6 +27,7 @@ public class SplashScreen extends Activity {
 			@Override
 			public void run() {
 					finish();
+				//	dh.deleteAll();
 						startActivity(new Intent(
 							"com.wiley.fordummies.androidsdk.tictactoe.Login"));
 

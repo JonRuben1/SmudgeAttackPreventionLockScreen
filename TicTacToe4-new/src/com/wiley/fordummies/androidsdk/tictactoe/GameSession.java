@@ -94,13 +94,8 @@ public class GameSession extends Activity {
 
 	private void setPlayers(Game theGame) {
 
-		if (Settings.doesHumanPlayFirst(this)) {
-			firstPlayerName = Settings.getName(this);
-			secondPlayerName = "Android";
-		} else {
 			firstPlayerName = "Android";
 			secondPlayerName = Settings.getName(this);
-		}
 		theGame.setPlayerNames(firstPlayerName, secondPlayerName);
 	}
 

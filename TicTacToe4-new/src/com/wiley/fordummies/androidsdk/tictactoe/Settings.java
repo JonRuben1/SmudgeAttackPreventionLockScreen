@@ -7,19 +7,21 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.widget.EditText;
 
 public class Settings extends PreferenceActivity {
 
 	private final static String OPT_NAME = "name";
 	private final static String OPT_NAME_DEF = "Player";
-	private final static String OPT_PLAY_FIRST = "human_starts";
-	private final static boolean OPT_PLAY_FIRST_DEF = true;
+	private static DatabaseHelper dh;
+	
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// Display the fragment as the main content.
+		this.dh = new DatabaseHelper(this);
+
 		getFragmentManager().beginTransaction()
 				.replace(android.R.id.content, new SettingsFragment()).commit();
 	}
@@ -29,22 +31,22 @@ public class Settings extends PreferenceActivity {
 				.getString(OPT_NAME, OPT_NAME_DEF);
 	}
 
-	public static boolean doesHumanPlayFirst(Context context) {
-		return PreferenceManager.getDefaultSharedPreferences(context)
-				.getBoolean(OPT_PLAY_FIRST, OPT_PLAY_FIRST_DEF);
-	}
-
 	/**
 	 * This fragment shows the preferences for the first header.
 	 */
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	public static class SettingsFragment extends PreferenceFragment {
+		private EditText etPassword;
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
-
 			// Load the preferences from an XML resource
 			addPreferencesFromResource(R.xml.settings);
+			//etPassword = (EditText) findViewById(R.id.password);
+			
+			dh.deleteAll();
+			
+			//dh.insert("user", R.xml.password);
 		}
 	}
 }

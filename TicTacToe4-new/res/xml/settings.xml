@@ -6,9 +6,9 @@
     android:title="Settings" >
 
     <EditTextPreference
-        android:defaultValue="****"
-        android:key="password"
+        android:defaultValue=""
+        android:key="new_android_password"
         android:summary="Select a new password. "
-        android:title="Player Info" />
+        android:title="Enter a New Password" />
 
 </PreferenceScreen>

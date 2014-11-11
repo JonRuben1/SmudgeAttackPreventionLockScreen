@@ -4,6 +4,9 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.EditTextPreference;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
@@ -24,6 +27,8 @@ public class Settings extends PreferenceActivity {
 
 		getFragmentManager().beginTransaction()
 				.replace(android.R.id.content, new SettingsFragment()).commit();
+		
+
 	}
 
 	public static String getName(Context context) {
@@ -36,17 +41,23 @@ public class Settings extends PreferenceActivity {
 	 */
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	public static class SettingsFragment extends PreferenceFragment {
-		private EditText etPassword;
+		private EditTextPreference edit_Pref;
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
-			// Load the preferences from an XML resource
-			addPreferencesFromResource(R.xml.settings);
-			//etPassword = (EditText) findViewById(R.id.password);
-			
-			dh.deleteAll();
-			
-			//dh.insert("user", R.xml.password);
+			addPreferencesFromResource(R.xml.settings);	
+			edit_Pref = (EditTextPreference) 
+                    getPreferenceScreen().findPreference("new_android_password");
+			edit_Pref.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+
+			     @Override
+			      public boolean onPreferenceChange(Preference preference, Object newValue) {			            
+						edit_Pref.setText((String)newValue);
+						dh.deleteAll();
+						dh.insert("user", edit_Pref.getText());
+			    	 return true;
+			       }
+			    });
 		}
 	}
 }

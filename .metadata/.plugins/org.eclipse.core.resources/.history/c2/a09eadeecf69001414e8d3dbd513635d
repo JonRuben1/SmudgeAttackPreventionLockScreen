@@ -1,0 +1,64 @@
+package com.wiley.fordummies.androidsdk.tictactoe;
+
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.os.Build;
+import android.os.Bundle;
+import android.preference.EditTextPreference;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.PreferenceActivity;
+import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
+import android.widget.EditText;
+
+public class Settings extends PreferenceActivity {
+
+	private final static String OPT_NAME = "name";
+	private final static String OPT_NAME_DEF = "Player";
+	private static DatabaseHelper dh;
+	
+
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		this.dh = new DatabaseHelper(this);
+
+		getFragmentManager().beginTransaction()
+				.replace(android.R.id.content, new SettingsFragment()).commit();
+
+	}
+
+	public static String getName(Context context) {
+		return PreferenceManager.getDefaultSharedPreferences(context)
+				.getString(OPT_NAME, OPT_NAME_DEF);
+	}
+
+	/**
+	 * This fragment shows the preferences for the first header.
+	 */
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	public static class SettingsFragment extends PreferenceFragment {
+		private EditTextPreference edit_Pref;
+		@Override
+		public void onCreate(Bundle savedInstanceState) {
+			boolean change = false;
+			super.onCreate(savedInstanceState);
+			addPreferencesFromResource(R.xml.settings);	
+			edit_Pref.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+
+			     @Override
+			      public boolean onPreferenceChange(Preference preference, Object newValue) {			             
+					change = true;
+			    	 return true;
+			       }
+			    });
+			if(change){
+				dh.deleteAll();
+				dh.insert("user", edit_Pref.getText());
+				change = false;
+			}
+		}
+	}
+}

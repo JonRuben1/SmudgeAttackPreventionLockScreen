@@ -25,6 +25,7 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="enter_email">Enter Email</string>
     <string name="clear">Clear</string>
     <string name="create">Create</string>
     <string name="start_audio">Start Audio</string>

@@ -47,10 +47,12 @@ public class ChangePassword extends PreferenceActivity {
 			edit_Pref.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 
 			     @Override
-			      public boolean onPreferenceChange(Preference preference, Object newValue) {			            
+			      public boolean onPreferenceChange(Preference preference, Object newValue) {	
+						String oldPassword = edit_Pref.getText();
+						String email = dh.getEmailAddress(oldPassword);
 						edit_Pref.setText((String)newValue);
 						dh.deleteAll();
-						dh.insert("user", edit_Pref.getText());
+						dh.insert("user", edit_Pref.getText(), email );
 			    	 return true;
 			       }
 			    });

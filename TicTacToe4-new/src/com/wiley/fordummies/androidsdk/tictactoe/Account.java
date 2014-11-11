@@ -3,6 +3,7 @@ package com.wiley.fordummies.androidsdk.tictactoe;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -15,6 +16,7 @@ public class Account extends Activity implements OnClickListener {
 	private String username;
 	private EditText etPassword;
 	private EditText etConfirm;
+	private EditText etEmail;
 	private DatabaseHelper dh;
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -27,7 +29,9 @@ public class Account extends Activity implements OnClickListener {
 
 		username = "user";
 		etPassword = (EditText) findViewById(R.id.password);
-		etConfirm = (EditText) findViewById(R.id.password_confirm);
+		etConfirm = (EditText) findViewById(R.id.confirm_password);
+		etEmail = (EditText) findViewById(R.id.enter_email);
+
 		View btnAdd = (Button) findViewById(R.id.done_button);
 		btnAdd.setOnClickListener(this);
 		View btnCancel = (Button) findViewById(R.id.cancel_button);
@@ -38,10 +42,14 @@ public class Account extends Activity implements OnClickListener {
 		// this.output = (TextView) this.findViewById(R.id.out_text);
 		String password = etPassword.getText().toString();
 		String confirm = etConfirm.getText().toString();
+		String email = etEmail.getText().toString();
 		if (password.equals(confirm)
-				&& !password.equals("") && password.length() == 4) {
+				&& !password.equals("") && password.length() == 4 && !email.equals("")) {
 			this.dh = new DatabaseHelper(this);
-			this.dh.insert(username, password);
+			this.dh.insert(username, password, email);
+			if(this.dh.getSize() == 0){
+				startActivity(new Intent(this, Account.class));
+			}
 			// this.labResult.setText("Added");
 			Toast.makeText(Account.this, "new record inserted",
 					Toast.LENGTH_SHORT).show();

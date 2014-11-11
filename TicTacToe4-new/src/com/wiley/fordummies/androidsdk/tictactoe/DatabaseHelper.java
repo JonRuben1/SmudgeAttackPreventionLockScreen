@@ -16,7 +16,7 @@ public class DatabaseHelper {
    private Context context;
    private static SQLiteDatabase db;
    private SQLiteStatement insertStmt;
-   private static final String INSERT = "insert into " + TABLE_NAME + "(name, password) values (?, ?)" ;
+   private static final String INSERT = "insert into " + TABLE_NAME + "(name, password, email) values (?, ?, ?)" ;
    
    public DatabaseHelper(Context context) {
       this.context = context;
@@ -25,9 +25,10 @@ public class DatabaseHelper {
       this.insertStmt = this.db.compileStatement(INSERT);
    }
 
-   public long insert(String name, String password) {
+   public long insert(String name, String password, String email) {
       this.insertStmt.bindString(1, name);
       this.insertStmt.bindString(2, password);
+      this.insertStmt.bindString(3, email);
       return this.insertStmt.executeInsert();
    }
    
@@ -35,6 +36,22 @@ public class DatabaseHelper {
       this.db.delete(TABLE_NAME, null, null);
    }
   
+   public String getEmailAddress(String password) {
+	      List<String> list = new ArrayList<String>();
+	      String username = "user";
+	      String email = "";
+	      Cursor cursor = this.db.query(TABLE_NAME, new String[] { "email" }, "name = '"+ username +"' AND password = '"+ password+"'", null, null, null, "name desc");
+	      if (cursor.moveToFirst()) {
+	          do {
+	          	 email = cursor.getString(0);
+	           } while (cursor.moveToNext()); 
+	        }
+	      if (cursor != null && !cursor.isClosed()) {
+	         cursor.close();
+	      }
+	      return email;
+	   }
+   
    public List<String> selectAll(String username, String password) {
       List<String> list = new ArrayList<String>();
       Cursor cursor = this.db.query(TABLE_NAME, new String[] { "name", "password" }, "name = '"+ username +"' AND password= '"+ password+"'", null, null, null, "name desc");
@@ -57,7 +74,7 @@ public class DatabaseHelper {
 
       @Override
       public void onCreate(SQLiteDatabase db) {
-         db.execSQL("CREATE TABLE " + TABLE_NAME + "(id INTEGER PRIMARY KEY, name TEXT, password TEXT)");
+         db.execSQL("CREATE TABLE " + TABLE_NAME + "(id INTEGER PRIMARY KEY, name TEXT, password TEXT, email TEXT)");
       }
 
       @Override
@@ -71,7 +88,9 @@ public class DatabaseHelper {
 
    public int getSize(){
  	  int count = 0;
-       Cursor cursor = db.query(TABLE_NAME, new String[] { "name", "password" },"", null, null, null, "name desc");
+       Cursor cursor = db.query(TABLE_NAME, new String[] { "name", "password", "email"},"", null, null, null, "name desc");
+       
+       
        if (cursor.moveToFirst()) {
          do {
          	count++;

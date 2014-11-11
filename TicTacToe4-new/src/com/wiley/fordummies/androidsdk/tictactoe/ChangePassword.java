@@ -1,0 +1,59 @@
+package com.wiley.fordummies.androidsdk.tictactoe;
+
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.os.Build;
+import android.os.Bundle;
+import android.preference.EditTextPreference;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.PreferenceActivity;
+import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
+import android.widget.EditText;
+
+public class ChangePassword extends PreferenceActivity {
+
+	private final static String OPT_NAME = "name";
+	private final static String OPT_NAME_DEF = "Player";
+	private static DatabaseHelper dh;
+	
+
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		this.dh = new DatabaseHelper(this);
+
+		getFragmentManager().beginTransaction()
+				.replace(android.R.id.content, new SettingsFragment()).commit();
+		
+
+	}
+
+
+	/**
+	 * This fragment shows the preferences for the first header.
+	 */
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	public static class SettingsFragment extends PreferenceFragment {
+		private EditTextPreference edit_Pref;
+		@Override
+		public void onCreate(Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+			addPreferencesFromResource(R.xml.settings);	
+			edit_Pref = (EditTextPreference) 
+                    getPreferenceScreen().findPreference("new_android_password");
+			edit_Pref.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+
+			     @Override
+			      public boolean onPreferenceChange(Preference preference, Object newValue) {			            
+						edit_Pref.setText((String)newValue);
+						dh.deleteAll();
+						dh.insert("user", edit_Pref.getText());
+			    	 return true;
+			       }
+			    });
+		}
+	}
+}

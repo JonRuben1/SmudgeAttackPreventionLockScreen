@@ -127,7 +127,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.wiley.fordummies.androidsdk.tictactoe.Settings"
+            android:name="com.wiley.fordummies.androidsdk.tictactoe.ChangePassword"
             android:label="@string/app_name"
             android:launchMode="standard"
             android:theme="@android:style/Theme.Dialog" >
